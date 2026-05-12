@@ -95,11 +95,13 @@ public class MainFrame extends JFrame {
                 if (config != null) {
                     currentConfig = config;
                     formPanel.buildForm(currentConfig);
-                } else {
-                    JOptionPane.showMessageDialog(this, "The selected file is not a valid form configuration.");
                 }
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Error loading config: " + ex.getMessage());
+            } catch (Exception ex) {
+                // Zeigt dem Benutzer genau an, was schiefgelaufen ist (z.B. Syntax-Fehler)
+                JOptionPane.showMessageDialog(this, 
+                    "Fehler beim Laden der Konfiguration:\n" + ex.getMessage(), 
+                    "Konfigurationsfehler", 
+                    JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -131,9 +133,12 @@ public class MainFrame extends JFrame {
                 if (!path.toLowerCase().endsWith(".json")) path += ".json";
                 
                 JsonHandler.saveData(path, data);
-                JOptionPane.showMessageDialog(this, "Data saved successfully!");
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Error saving data: " + ex.getMessage());
+                JOptionPane.showMessageDialog(this, "Daten erfolgreich gespeichert!");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, 
+                    "Fehler beim Speichern:\n" + ex.getMessage(), 
+                    "Speicherfehler", 
+                    JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -159,9 +164,12 @@ public class MainFrame extends JFrame {
                     if (res != JOptionPane.YES_OPTION) return;
                 }
                 formPanel.setValues(data.getValues());
-                JOptionPane.showMessageDialog(this, "Data loaded successfully!");
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Error loading data: " + ex.getMessage());
+                JOptionPane.showMessageDialog(this, "Daten erfolgreich geladen!");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, 
+                    "Fehler beim Laden der Daten:\n" + ex.getMessage(), 
+                    "Ladefehler", 
+                    JOptionPane.ERROR_MESSAGE);
             }
         }
     }

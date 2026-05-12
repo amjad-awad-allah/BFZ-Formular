@@ -15,7 +15,12 @@ public class JsonHandler {
 
     public static FormConfig loadConfig(String filePath) throws IOException {
         try (FileReader reader = new FileReader(filePath)) {
-            return gson.fromJson(reader, FormConfig.class);
+            FormConfig config = gson.fromJson(reader, FormConfig.class);
+            // Validierung: Prüfen، ob die Basis-Felder vorhanden sind
+            if (config == null || config.getFormTitle() == null || config.getFields() == null) {
+                throw new IOException("Ungültiges Format: Formular-Titel oder Felder fehlen.");
+            }
+            return config;
         }
     }
 
