@@ -45,11 +45,7 @@ public class ValidationEngine {
         return errors;
     }
 
-    /**
-     * Extracts value from Swing components using Pattern Matching for switch (Java 21).
-     * This modern approach provides a clean, declarative way to handle multiple types
-     * and binds the typed variables directly within each case label.
-     */
+    // Hilfsmethode: Holt den Wert كـ String, je nach Komponententyp
     private static String getValueAsString(JComponent component) {
         return switch (component) {
             case JTextField textField -> textField.getText();

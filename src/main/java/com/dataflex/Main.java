@@ -9,14 +9,14 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 public class Main {
     public static void main(String[] args) {
-        // Set Look and Feel to FlatLaf Light (or Dark)
+        // Modernes Design (FlatLaf) laden
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (UnsupportedLookAndFeelException ex) {
-            System.err.println("Failed to initialize FlatLaf");
+            System.err.println("Design konnte nicht geladen werden.");
         }
 
-        // Run UI on Event Dispatch Thread
+        // GUI im richtigen Thread starten
         SwingUtilities.invokeLater(() -> {
             MainFrame frame = new MainFrame();
             frame.setVisible(true);

@@ -25,7 +25,8 @@ import com.dataflex.model.FormData;
 import net.miginfocom.swing.MigLayout;
 
 public class MainFrame extends JFrame {
-    private DynamicFormPanel formPanel;
+    // UI-Hauptkomponenten
+    private final DynamicFormPanel formPanel;
     private FormConfig currentConfig;
 
     public MainFrame() {
@@ -37,10 +38,11 @@ public class MainFrame extends JFrame {
         initComponents();
     }
 
+    // Initialisierung der Benutzeroberfläche
     private void initComponents() {
         setLayout(new BorderLayout());
 
-        // Header
+        // Oberer Bereich (Header)
         JPanel headerPanel = new JPanel(new MigLayout("insets 15", "[]push[]"));
         headerPanel.setBackground(new Color(0, 128, 128)); // Teal
         JLabel logoLabel = new JLabel("DataFlex Solutions");
@@ -49,7 +51,7 @@ public class MainFrame extends JFrame {
         headerPanel.add(logoLabel);
         add(headerPanel, BorderLayout.NORTH);
 
-        // Sidebar
+        // Seitliche Menüleiste (Sidebar)
         JPanel sidebar = new JPanel(new MigLayout("wrap 1, insets 10, fillx", "[fill]"));
         sidebar.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.LIGHT_GRAY));
         

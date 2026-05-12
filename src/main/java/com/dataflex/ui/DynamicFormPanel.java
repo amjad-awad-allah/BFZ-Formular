@@ -21,7 +21,7 @@ import com.dataflex.model.FormField;
 import net.miginfocom.swing.MigLayout;
 
 public class DynamicFormPanel extends JPanel {
-    // Using LinkedHashMap to maintain predictable insertion order for form field generation
+    // Speichert die Zuordnung von Config-Feld zu Swing-Komponente
     private final Map<FormField, JComponent> fieldMap = new LinkedHashMap<>();
     private final JLabel titleLabel;
 
@@ -32,10 +32,7 @@ public class DynamicFormPanel extends JPanel {
         add(titleLabel, "span, center, gapbottom 20");
     }
 
-    /**
-     * Reconstructs the entire form UI at runtime based on the provided configuration.
-     * This handles layout clearing, component creation, and mapping for later data retrieval.
-     */
+    // Baut das Formular basierend auf der JSON-Config komplett neu auf
     public void buildForm(FormConfig config) {
         removeAll();
         fieldMap.clear();
@@ -100,9 +97,7 @@ public class DynamicFormPanel extends JPanel {
         }
     }
 
-    /**
-     * Extracts values from the UI components using modern switch pattern matching.
-     */
+    // Liest die aktuellen Werte aus den GUI-Komponenten aus
     private Object getValue(JComponent comp) {
         return switch (comp) {
             case JTextField textField -> textField.getText();
@@ -119,14 +114,12 @@ public class DynamicFormPanel extends JPanel {
         };
     }
 
-    /**
-     * Populates UI components with data, handling type conversions safely.
-     */
+    // Schreibt die Werte in die entsprechenden GUI-Komponenten
     private void setValue(JComponent comp, Object val) {
         switch (comp) {
             case JTextField textField -> textField.setText(val.toString());
             case JSpinner spinner -> {
-                // Handle JSON numeric conversion (Double to Integer)
+                // Konvertierung von Double (aus JSON) zu Integer für den Spinner
                 if (val instanceof Double d) spinner.setValue(d.intValue());
                 else spinner.setValue(val);
             }
