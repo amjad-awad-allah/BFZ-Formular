@@ -1,6 +1,5 @@
 {
   "formTitle": "Kunden-Feedback",
-  "version": "1.0.2",
   "fields": [
     {
       "id": "name",

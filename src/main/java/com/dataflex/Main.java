@@ -8,6 +8,8 @@ import com.dataflex.ui.MainFrame;
 import com.formdev.flatlaf.FlatLightLaf;
 
 public class Main {
+    public static final String APP_VERSION = "1.0.0";
+
     public static void main(String[] args) {
         // Modernes Design (FlatLaf) laden
         try {

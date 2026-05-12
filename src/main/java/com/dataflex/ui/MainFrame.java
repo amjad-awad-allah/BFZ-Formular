@@ -2,8 +2,8 @@ package com.dataflex.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -79,8 +79,8 @@ public class MainFrame extends JFrame {
         add(scrollPane, BorderLayout.CENTER);
 
         // Footer / Status Bar
-        JPanel footer = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        versionLabel = new JLabel("No configuration loaded");
+        JPanel footer = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        versionLabel = new JLabel("Application Version: " + com.dataflex.Main.APP_VERSION);
         versionLabel.setFont(versionLabel.getFont().deriveFont(Font.ITALIC, 11f));
         versionLabel.setForeground(Color.GRAY);
         footer.add(versionLabel);
@@ -95,13 +95,6 @@ public class MainFrame extends JFrame {
                 if (config != null) {
                     currentConfig = config;
                     formPanel.buildForm(currentConfig);
-                    
-                    // Update version in status bar
-                    if (config.getVersion() != null) {
-                        versionLabel.setText("Form Version: " + config.getVersion());
-                    } else {
-                        versionLabel.setText("Form Version: N/A");
-                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "The selected file is not a valid form configuration.");
                 }
@@ -131,7 +124,6 @@ public class MainFrame extends JFrame {
             try {
                 FormData data = new FormData();
                 data.setFormTitle(currentConfig.getFormTitle());
-                data.setVersion(currentConfig.getVersion());
                 data.setSubmittedAt(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));
                 data.setValues(formPanel.getValues());
 
@@ -167,12 +159,6 @@ public class MainFrame extends JFrame {
                     if (res != JOptionPane.YES_OPTION) return;
                 }
                 formPanel.setValues(data.getValues());
-                
-                // Version im Status-Bar aktualisieren
-                if (data.getVersion() != null) {
-                    versionLabel.setText("Form Version: " + data.getVersion());
-                }
-                
                 JOptionPane.showMessageDialog(this, "Data loaded successfully!");
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Error loading data: " + ex.getMessage());
