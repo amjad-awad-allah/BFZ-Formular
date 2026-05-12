@@ -37,11 +37,7 @@ public class DynamicFormPanel extends JPanel {
         removeAll();
         fieldMap.clear();
 
-        String titleText = config.getFormTitle();
-        if (config.getVersion() != null) {
-            titleText += " (v" + config.getVersion() + ")";
-        }
-        titleLabel.setText(titleText);
+        titleLabel.setText(config.getFormTitle());
         add(titleLabel, "span, center, gapbottom 20");
 
         for (FormField field : config.getFields()) {

@@ -26,7 +26,8 @@ import net.miginfocom.swing.MigLayout;
 
 public class MainFrame extends JFrame {
     // UI-Hauptkomponenten
-    private final DynamicFormPanel formPanel;
+    private DynamicFormPanel formPanel;
+    private JLabel versionLabel;
     private FormConfig currentConfig;
 
     public MainFrame() {
@@ -75,6 +76,14 @@ public class MainFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(formPanel);
         scrollPane.setBorder(null);
         add(scrollPane, BorderLayout.CENTER);
+
+        // Footer / Status Bar
+        JPanel footer = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        versionLabel = new JLabel("No configuration loaded");
+        versionLabel.setFont(versionLabel.getFont().deriveFont(Font.ITALIC, 11f));
+        versionLabel.setForeground(Color.GRAY);
+        footer.add(versionLabel);
+        add(footer, BorderLayout.SOUTH);
     }
 
     private void loadConfig() {
@@ -85,6 +94,13 @@ public class MainFrame extends JFrame {
                 if (config != null) {
                     currentConfig = config;
                     formPanel.buildForm(currentConfig);
+                    
+                    // Update version in status bar
+                    if (config.getVersion() != null) {
+                        versionLabel.setText("Form Version: " + config.getVersion());
+                    } else {
+                        versionLabel.setText("Form Version: N/A");
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "The selected file is not a valid form configuration.");
                 }
@@ -150,6 +166,12 @@ public class MainFrame extends JFrame {
                     if (res != JOptionPane.YES_OPTION) return;
                 }
                 formPanel.setValues(data.getValues());
+                
+                // Version im Status-Bar aktualisieren
+                if (data.getVersion() != null) {
+                    versionLabel.setText("Form Version: " + data.getVersion());
+                }
+                
                 JOptionPane.showMessageDialog(this, "Data loaded successfully!");
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Error loading data: " + ex.getMessage());
